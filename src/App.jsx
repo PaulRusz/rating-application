@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/navbar.js";
-import Footer from "./components/footer.js";
-import Homepage from "./pages/homepage.js";
-import Login from "./pages/login.js";
-import Profile from "./pages/profile.js";
+import Navbar from "./components/navbar.jsx";
+import Footer from "./components/footer.jsx";
+import Homepage from "./pages/homepage.jsx";
+import Login from "./pages/login.jsx";
+import Profile from "./pages/profile.jsx";
 import styles from "./styles/global.module.scss";
 
 export default function App() {
