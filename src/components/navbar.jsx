@@ -7,19 +7,29 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <ul className={styles.navList}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/" className={styles.links}>
+            Home
+          </Link>
         </li>
         <li>
-          <Link to="/profile">Profile</Link>
+          <Link to="/profile" className={styles.links}>
+            Profile
+          </Link>
         </li>
         <li>
-          <Link to="/logout">Logout</Link>
+          <Link to="/logout" className={styles.links}>
+            Logout
+          </Link>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <Link to="/login" className={styles.links}>
+            Login
+          </Link>
         </li>
         <li>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/signup" className={styles.links}>
+            Sign Up
+          </Link>
         </li>
         <li className={styles.searchContainer}>
           <input

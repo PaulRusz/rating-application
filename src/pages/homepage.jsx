@@ -11,7 +11,7 @@ export default function HomePage() {
         products such as books, movies, restaraunts, etc and add them to your
         favorite categories
       </p>
-      <Link to="/about">Go to the about page</Link>
+      <Link to="/addRating">Add a new product & rating here!</Link>
     </div>
   );
 }
