@@ -1,0 +1,65 @@
+// src/styles/navbar.module.scss
+
+.navbar {
+    background-color: #00457c; /* Navbar background color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Padding around the navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navList {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .navList li {
+    margin: 0 15px;
+  }
+  
+  .navList a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+  }
+  
+  .navList a:hover {
+    color: #66bfbf; /* Change color on hover */
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchInputBox {
+    padding: 5px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 1rem;
+  }
+  
+  .searchButton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #66bfbf; /* Button background color */
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .searchButton:hover {
+    background-color: #00457c; /* Change button color on hover */
+  }
+  
