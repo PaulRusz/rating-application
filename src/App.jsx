@@ -8,6 +8,7 @@ import Logout from "./pages/logout.jsx";
 import SignUp from "./pages/signup.jsx";
 import Profile from "./pages/profile.jsx";
 import AddRating from "./pages/addRating.jsx";
+import CategoryPage from "./components/categoryPage.jsx";
 
 import styles from "./styles/global.module.scss";
 
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
         </Routes>
       </div>
       {/* <Footer /> */}
