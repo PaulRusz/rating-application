@@ -1,21 +1,21 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("./models/User");
-require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const path = require("path"); // <-- Make sure to include this
 
 const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
+// Your API routes go here
 app.post("/api/signup", async (req, res) => {
   try {
     const { firstName, lastName, profileName, email, password } = req.body;
@@ -55,10 +55,6 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 // LOGIN CODE
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
@@ -74,11 +70,28 @@ app.post("/api/login", async (req, res) => {
     if (!isValidPassword) {
       return res.status(401).json({ error: "Invalid password" });
     }
+
+    // Create a JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h", // Token expires in 1 hour
+    });
+
     // If user info matches, send success response
-    return res.json({ success: true });
+    // Return the token
+    return res.json({ success: true, token });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
-// RATING CODE
+// Serve static files from the React app (client/build folder)
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+// Catch-all route: Send all other requests to React's index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
+
+// Start the server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

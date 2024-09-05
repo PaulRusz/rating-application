@@ -8,7 +8,7 @@ export default function HomePage() {
       <h1>Welcome to the RateThis!</h1>
       <p>
         This is a react project where you'll be able to rate miscellaneous
-        products such as books, movies, restaraunts, etc and add them to your
+        products such as books, movies, restaurants, etc and add them to your
         favorite categories
       </p>
 
