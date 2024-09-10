@@ -17,10 +17,9 @@ export default function Login() {
         password,
       });
       if (response.data.success) {
-        // Store the token in localStorage
         localStorage.setItem("token", response.data.token);
         // Redirect to homepage on successful login
-        navigate("/homepage.jsx");
+        navigate("/");
       } else {
         setError(response.data.message || "Login failed. Please try again.");
       }

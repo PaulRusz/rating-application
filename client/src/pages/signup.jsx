@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/signup.module.scss";
 
 export default function Signup() {
+  const navigate = useNavigate;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -56,6 +59,7 @@ export default function Signup() {
 
       if (response.ok) {
         alert("Signup successful!");
+        navigate("/");
       } else {
         alert("Error during signup.");
       }
