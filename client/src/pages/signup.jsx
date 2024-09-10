@@ -5,7 +5,7 @@ export default function Signup() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    profileName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -40,17 +40,22 @@ export default function Signup() {
 
   const submitFormData = async () => {
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch("http://localhost:3001/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
       if (response.ok) {
         alert("Signup successful!");
-        // Optionally, redirect to login or profile page
       } else {
         alert("Error during signup.");
       }
@@ -82,9 +87,9 @@ export default function Signup() {
         />
         <input
           type="text"
-          name="profileName"
-          placeholder="Profile Name"
-          value={formData.profileName}
+          name="username"
+          placeholder="User Name"
+          value={formData.username}
           onChange={handleChange}
           required
         />

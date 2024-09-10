@@ -1,5 +1,6 @@
 // A model for user data, including fields like firstName, lastName, email, password, etc.
 const mongoose = require("mongoose");
+
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
