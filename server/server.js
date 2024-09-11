@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const authRoutes = require("./routes/auth.js");
+const ratingRoutes = require("./routes/ratings.js");
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,9 @@ mongoose
 
 // Use authentication routes
 app.use("/api", authRoutes);
+
+// Use Rating routes
+app.use("/api", ratingRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/dist")));

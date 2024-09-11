@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/homepage.module.scss";
 
 export default function HomePage() {
+  // const [ratedItems, setRatedItems] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+
+  // const userId = localStorage.getItem("userId");
+
+  // useEffect(() => {
+  //   if (!userId) {
+  //     setError("User not logged in.");
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   const fetchRatedItems = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:3001/api/rate/${userId}`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Failed to find rated items.");
+  //       }
+  //       const data = await response.json();
+  //       setRatedItems(data);
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchRatedItems();
+  // }, [userId]);
+
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
+
   return (
     <div className={styles.homepageContainer}>
       <h1>Welcome to the RateThis!</h1>

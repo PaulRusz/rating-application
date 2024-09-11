@@ -10,6 +10,8 @@ export default function AddRating() {
     comments: "",
   });
 
+  const username = localStorage.getItem("username");
+
   const categories = ["Books", "Movies", "Restaurants", "Games", "Other"];
 
   const handleChange = (e) => {
@@ -20,9 +22,30 @@ export default function AddRating() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("New rating submitted", formData);
+    const data = {
+      ...formData,
+      username,
+    };
+    console.log("Username:", username);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/rate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit rating.");
+      }
+      console.log("New rating submitted", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
