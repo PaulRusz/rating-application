@@ -26,7 +26,7 @@ export default function CategoryPage() {
             <div key={item.id} className={styles.item}>
               <h3>{item.name}</h3>
               <p>Rating: {item.rating}/5</p>
-              <p>Comments: {item.comments}</p>
+              <p>Comment: {item.comment}</p>
             </div>
           ))
         ) : (

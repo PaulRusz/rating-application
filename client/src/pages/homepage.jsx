@@ -3,41 +3,46 @@ import { Link } from "react-router-dom";
 import styles from "../styles/homepage.module.scss";
 
 export default function HomePage() {
-  // const [ratedItems, setRatedItems] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  const [ratedItems, setRatedItems] = useState([]);
+  const [topItems, setTopItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // const userId = localStorage.getItem("userId");
+  useEffect(() => {
+    const fetchRatedItems = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/ratings");
+        if (!response.ok) {
+          throw new Error("Failed to fetch recent ratings.");
+        }
+        const data = await response.json();
+        setRatedItems(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   if (!userId) {
-  //     setError("User not logged in.");
-  //     setLoading(false);
-  //     return;
-  //   }
+    const fetchTopItems = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/top20");
+        if (!response.ok) {
+          throw new Error("Failed to fetch top items.");
+        }
+        const data = await response.json();
+        setTopItems(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
 
-  //   const fetchRatedItems = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:3001/api/rate/${userId}`
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Failed to find rated items.");
-  //       }
-  //       const data = await response.json();
-  //       setRatedItems(data);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+    fetchRatedItems();
+    fetchTopItems();
+  }, []);
 
-  //   fetchRatedItems();
-  // }, [userId]);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className={styles.homepageContainer}>
@@ -74,42 +79,41 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Recently Rated Items */}
         <section className={styles.ratedItemsContainer}>
           <h2>Most Recent Items</h2>
           <div className={styles.itemList}>
-            <div className={styles.item}>
-              <h3>Item 1</h3>
-              <p>Rating: 4/5</p>
-              <p>Category: Books</p>
-            </div>
-            <div className={styles.item}>
-              <h3>Item 2</h3>
-              <p>Rating: 5/5</p>
-              <p>Category: Movies</p>
-            </div>
-            <div className={styles.item}>
-              <h3>Item 3</h3>
-              <p>Rating: 3/5</p>
-              <p>Category: Restaurants</p>
-            </div>
+            {ratedItems.length > 0 ? (
+              ratedItems.map((item) => (
+                <div key={item._id} className={styles.item}>
+                  <h3>{item.itemName}</h3> <p>Category: {item.category}</p>
+                  <p>Rating: {item.rating}/5</p>
+                  {item.comment && <p>Comment: {item.comment}</p>}
+                </div>
+              ))
+            ) : (
+              <p>No recent ratings available yet.</p>
+            )}
           </div>
         </section>
 
         {/* Top Rated Items */}
         <section className={styles.ratedItemsContainer}>
-          <h2>Top Rated Items</h2>
+          <h2>Top 5 Rated Items</h2>
           <div className={styles.itemList}>
-            <div className={styles.item}>
-              <h3>Top Item 1</h3>
-              <p>Rating: 5/5</p>
-              <p>Category: Movies</p>
-            </div>
-            <div className={styles.item}>
-              <h3>Top Item 2</h3>
-              <p>Rating: 5/5</p>
-              <p>Category: Books</p>
-            </div>
+            {topItems.slice(0, 5).map((item) => (
+              <div key={item._id} className={styles.item}>
+                <h3>{item.itemName}</h3>
+                <p>Category: {item.category}</p>
+                <p>Rating: {item.rating}/5</p>
+                {item.comment && <p>Comment: {item.comment}</p>}
+              </div>
+            ))}
           </div>
+
+          <Link to="/top20Page" className={styles.viewMoreButton}>
+            See Top 20 Rated Items
+          </Link>
         </section>
       </div>
     </div>

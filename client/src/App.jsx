@@ -9,6 +9,7 @@ import SignUp from "./pages/signup.jsx";
 import Profile from "./pages/profile.jsx";
 import AddRating from "./pages/addRating.jsx";
 import CategoryPage from "./components/categoryPage.jsx";
+import Top20Page from "./pages/top20Page.jsx";
 
 import styles from "./styles/global.module.scss";
 
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/top20Page" element={<Top20Page />} />
         </Routes>
       </div>
       {/* <Footer /> */}

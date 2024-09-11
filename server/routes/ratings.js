@@ -4,8 +4,8 @@ const Rating = require("../models/rating.js");
 const User = require("../models/user.js"); //
 
 // POST route to add a new rating
-router.post("/rate", async (req, res) => {
-  const { category, name, rating, username, comments } = req.body;
+router.post("/ratings", async (req, res) => {
+  const { category, name, rating, username, comment } = req.body;
 
   try {
     // IGNORE FOR NOW - MAY NOT NEED TO VERIFY IF USER EXISTS HERE WHEN SUBMITTING A RATING
@@ -19,7 +19,7 @@ router.post("/rate", async (req, res) => {
       itemName: name,
       rating,
       username,
-      comments,
+      comment,
     });
     await newRating.save();
     res.status(201).json({ message: "Rating added!" });
@@ -43,6 +43,26 @@ router.get("/api/rate/:username", async (req, res) => {
     res.status(200).json(ratings);
   } catch (error) {
     res.status(500).json({ error: "Failed to find ratings." });
+  }
+});
+
+// GET route to fetch most recent ratings
+router.get("/ratings", async (req, res) => {
+  try {
+    const recentRatings = await Rating.find().sort({ createdAt: -1 }).limit(5);
+    res.status(200).json(recentRatings);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to find recent ratings." });
+  }
+});
+
+// GET route to fetch top ratings
+router.get("/top20", async (req, res) => {
+  try {
+    const topRatings = await Rating.find().sort({ rating: -1 }).limit(20);
+    res.status(200).json(topRatings);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to find top 20 ratings." });
   }
 });
 

@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import styles from "../styles/addRating.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRating() {
   const [formData, setFormData] = useState({
     category: "",
     name: "",
     rating: "",
-    comments: "",
+    comment: "",
   });
 
   const username = localStorage.getItem("username");
 
   const categories = ["Books", "Movies", "Restaurants", "Games", "Other"];
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +34,7 @@ export default function AddRating() {
     console.log("Username:", username);
 
     try {
-      const response = await fetch("http://localhost:3001/api/rate", {
+      const response = await fetch("http://localhost:3001/api/ratings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,6 +46,7 @@ export default function AddRating() {
         throw new Error("Failed to submit rating.");
       }
       console.log("New rating submitted", data);
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -92,11 +96,11 @@ export default function AddRating() {
           required
         />
 
-        <label htmlFor="comments">Additional Comments:</label>
+        <label htmlFor="comment">Additional Comments:</label>
         <textarea
-          id="comments"
-          name="comments"
-          value={formData.comments}
+          id="comment"
+          name="comment"
+          value={formData.comment}
           onChange={handleChange}
         ></textarea>
 
