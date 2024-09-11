@@ -66,4 +66,21 @@ router.get("/top20", async (req, res) => {
   }
 });
 
+// GET route to fetch ratings by category
+router.get("/items", async (req, res) => {
+  const { category } = req.query;
+  console.log("Category received:", category);
+
+  try {
+    const items = await Rating.find({
+      category: { $regex: new RegExp(`^${category}$`, "i") },
+    }).sort({ rating: -1 });
+    console.log("Items fetched:", items);
+    res.status(200).json(items);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ error: "Failed to find items" });
+  }
+});
+
 module.exports = router;

@@ -76,6 +76,9 @@ export default function HomePage() {
             <Link to="/category/games" className={styles.categoryItem}>
               Games
             </Link>
+            <Link to="/category/other" className={styles.categoryItem}>
+              Other
+            </Link>
           </div>
         </section>
 
