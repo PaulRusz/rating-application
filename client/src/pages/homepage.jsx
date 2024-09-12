@@ -89,9 +89,11 @@ export default function HomePage() {
             {ratedItems.length > 0 ? (
               ratedItems.map((item) => (
                 <div key={item._id} className={styles.item}>
-                  <h3>{item.itemName}</h3> <p>Category: {item.category}</p>
-                  <p>Rating: {item.rating}/5</p>
-                  {item.comment && <p>Comment: {item.comment}</p>}
+                  <Link to={`/rating/${item._id}`}>
+                    <h3>{item.itemName}</h3> <p>Category: {item.category}</p>
+                    <p>Rating: {item.rating}/5</p>
+                    {item.comment && <p>Comment: {item.comment}</p>}
+                  </Link>
                 </div>
               ))
             ) : (
@@ -106,10 +108,12 @@ export default function HomePage() {
           <div className={styles.itemList}>
             {topItems.slice(0, 5).map((item) => (
               <div key={item._id} className={styles.item}>
-                <h3>{item.itemName}</h3>
-                <p>Category: {item.category}</p>
-                <p>Rating: {item.rating}/5</p>
-                {item.comment && <p>Comment: {item.comment}</p>}
+                <Link to={`/rating/${item._id}`}>
+                  <h3>{item.itemName}</h3>
+                  <p>Category: {item.category}</p>
+                  <p>Rating: {item.rating}/5</p>
+                  {item.comment && <p>Comment: {item.comment}</p>}
+                </Link>
               </div>
             ))}
           </div>

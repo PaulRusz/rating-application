@@ -28,6 +28,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/top20Page" element={<Top20Page />} />
+          <Route path="/rating/:id" element={<RatingDetail />} />
           <Route path="/rating/:id/edit" element={<RatingDetail />} />
         </Routes>
       </div>

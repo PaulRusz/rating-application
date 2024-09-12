@@ -59,9 +59,9 @@ export default function RatingDetail() {
     setIsEditing(!isEditing);
   };
 
-  const handleEdit = () => {
-    navigate(`/rating/${id}/edit`);
-  };
+  // const handleEdit = () => {
+  //   navigate(`/rating/${id}/edit`);
+  // };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
