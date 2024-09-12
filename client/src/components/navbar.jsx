@@ -35,20 +35,12 @@ export default function Navbar() {
         ) : (
           <>
             <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
               <Link to="/" className={styles.links}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/profile" className={styles.links}>
-                Profile
-              </Link>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Logout</button>
+              <Link to="/profile">Profile</Link>
             </li>
           </>
         )}
@@ -59,6 +51,9 @@ export default function Navbar() {
             className={styles.searchInputBox}
           />
           <button className={styles.searchButton}>Search</button>
+        </li>
+        <li>
+          <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
     </nav>
