@@ -18,15 +18,12 @@ export default function CategoryPage() {
         const response = await axios.get(
           `http://localhost:3001/api/items?category=${upperCaseCategory}`
         );
-        console.log("Response data:", response.data);
         if (Array.isArray(response.data)) {
           setItems(response.data);
         } else {
-          console.error("Expected array but got:", response.data);
           setItems([]);
         }
       } catch (err) {
-        console.error("Error fetching data.", err);
         setError("Failed to fetch data.");
       } finally {
         setLoading(false);
@@ -42,7 +39,6 @@ export default function CategoryPage() {
     try {
       await axios.delete(`http://localhost:3001/api/ratings/${id}`);
       setItems((prevItems) => prevItems.filter((item) => item._id !== id));
-      console.log(`Rating with id {id} deleted!`);
     } catch (error) {
       console.error("Error deleting rating", error);
     }
@@ -58,7 +54,7 @@ export default function CategoryPage() {
 
   return (
     <div className={styles.categoryPageContainer}>
-      <h1>{category}</h1>
+      <h1>{upperCaseCategory}</h1>
       <div className={styles.gridContainer}>
         {items.length > 0 ? (
           items.map((item) => (

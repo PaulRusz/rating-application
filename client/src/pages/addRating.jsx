@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
 import styles from "../styles/addRating.module.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +30,6 @@ export default function AddRating() {
       ...formData,
       username,
     };
-    console.log("Username:", username);
 
     try {
       const response = await fetch("http://localhost:3001/api/ratings", {
@@ -53,64 +51,61 @@ export default function AddRating() {
   };
 
   return (
-    <div className={styles.addRatingContainer}>
-      <h1>Add a New Rating</h1>
-      <form onSubmit={handleSubmit} className={styles.ratingForm}>
-        <label htmlFor="category">Category:</label>
-        <select
-          id="category"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>
-            Select a category
-          </option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
+    <div className={styles.addRatingPage}>
+      <div className={styles.addRatingContainer}>
+        <h1>Add a New Rating</h1>
+        <form onSubmit={handleSubmit} className={styles.ratingForm}>
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>
+              Select a category
             </option>
-          ))}
-        </select>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="name">Product Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+          <label htmlFor="name">Product Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
-        <label htmlFor="rating">Rating (1-5):</label>
-        <input
-          type="number"
-          id="rating"
-          name="rating"
-          min="1"
-          max="5"
-          value={formData.rating}
-          onChange={handleChange}
-          required
-        />
+          <label htmlFor="rating">Rating (1-5):</label>
+          <input
+            type="number"
+            id="rating"
+            name="rating"
+            min="1"
+            max="5"
+            value={formData.rating}
+            onChange={handleChange}
+            required
+          />
 
-        <label htmlFor="comment">Additional Comments:</label>
-        <textarea
-          id="comment"
-          name="comment"
-          value={formData.comment}
-          onChange={handleChange}
-        ></textarea>
+          <label htmlFor="comment">Additional Comments:</label>
+          <textarea
+            id="comment"
+            name="comment"
+            value={formData.comment}
+            onChange={handleChange}
+          ></textarea>
 
-        <button type="submit">Submit Rating</button>
-      </form>
-      <p>
-        Here is where a user can add a product/rate the product. Or should I
-        make it so a new container appears when the button is clicked on the
-        homepage?
-      </p>
+          <button type="submit">Submit Rating</button>
+        </form>
+      </div>
     </div>
   );
 }
