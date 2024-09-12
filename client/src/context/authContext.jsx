@@ -1,29 +1,32 @@
 // IGNORE FOR NOW.  SUPPOSED TO ASSIST WITH REFRESHING THE PAGE/NAVBAR UPON LOGIN BUT
 // IT DOESN'T SEEM TO BE WORKING AS EXPECTED.
 
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AuthService from "../utils/auth.js";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(AuthService.LoggedIn());
 
   useEffect(() => {
-    const userToken = localStorage.getItem("userToken");
-    console.log("User token on load:", userToken);
-    if (userToken) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
+    const checkAuth = () => {
+      setIsLoggedIn(AuthService.LoggedIn());
+    };
+
+    checkAuth();
+    const interval = setInterval(checkAuth, 60000); // Check every minute
+
+    return () => clearInterval(interval);
   }, []);
 
   const login = (token) => {
-    localStorage.setItem("userToken", token);
+    AuthService.Login(token);
     setIsLoggedIn(true);
   };
+
   const logout = () => {
-    localStorage.removeItem("userToken");
+    AuthService.Logout();
     setIsLoggedIn(false);
   };
 
@@ -32,4 +35,12 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

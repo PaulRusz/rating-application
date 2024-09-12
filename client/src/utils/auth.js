@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
+// Define the AuthService
 class AuthService {
   GetProfile() {
     return jwtDecode(this.GetToken());
@@ -7,20 +8,12 @@ class AuthService {
 
   LoggedIn() {
     const Token = this.GetToken();
-    // If There's A Token And It Isn't Expired, Return `true`
-    return Token && !this.IsTokenExpired(Token) ? true : false;
+    return Token && !this.IsTokenExpired(Token);
   }
 
   IsTokenExpired(Token) {
-    // Decode Token To Retrieve Expiration Time Set By The Server
     const Decoded = jwtDecode(Token);
-    // If Expiration Time Is Less Than Current Time (In Seconds), Token Is Expired & Return `true`
-    if (Decoded.exp < Date.now() / 1000) {
-      localStorage.removeItem("id_token");
-      return true;
-    }
-    // If Token Isn't Passed Expiration Time, Return `false`
-    else return false;
+    return Decoded.exp < Date.now() / 1000;
   }
 
   GetToken() {
@@ -37,4 +30,6 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authServiceInstance = new AuthService();
+
+export default authServiceInstance;

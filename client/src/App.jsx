@@ -11,6 +11,7 @@ import AddRating from "./pages/addRating.jsx";
 import CategoryPage from "./components/categoryPage.jsx";
 import Top20Page from "./pages/top20Page.jsx";
 import RatingDetail from "./components/ratingDetail.jsx";
+import WelcomePage from "./pages/welcomePage.jsx";
 
 import styles from "./styles/global.module.scss";
 
@@ -20,6 +21,7 @@ export default function App() {
       <Navbar />
       <div className={styles.App}>
         <Routes>
+          <Route path="welcomePage" element={<WelcomePage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/addRating" element={<AddRating />} />
           <Route path="/login" element={<Login />} />
