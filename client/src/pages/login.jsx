@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/login.module.scss";
 
@@ -17,7 +17,7 @@ export default function Login() {
         password,
       });
       if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userToken", response.data.token);
         localStorage.setItem("username", response.data.username);
         // Redirect to homepage on successful login
         navigate("/");
