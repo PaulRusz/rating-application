@@ -83,4 +83,61 @@ router.get("/items", async (req, res) => {
   }
 });
 
+// GET route to fetch a single rating by ID
+router.get("/ratings/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const rating = await Rating.findById(id);
+    if (!rating) {
+      return res.status(404).json({ error: "Rating not found." });
+    }
+    res.status(200).json(rating);
+  } catch (error) {
+    console.error("Error fetching rating:", error);
+    res.status(500).json({ error: "Failed to fetch rating." });
+  }
+});
+
+// DELETE route to delete a rating by id
+router.delete("/ratings/:id", async (req, res) => {
+  try {
+    const ratingId = req.params.id;
+    const deletedRating = await Rating.findByIdAndDelete(ratingId);
+
+    if (!deletedRating) {
+      return res.status(404).json({ message: "Rating not found" });
+    }
+
+    res.setMaxListeners(200).json({ message: "Rating deleted!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting rating", error });
+  }
+});
+
+// PUT route to edit a rating
+router.put("/ratings/:id", async (req, res) => {
+  try {
+    const ratingId = req.params.id;
+    const updatedRating = await Rating.findByIdAndUpdate(
+      ratingId,
+      {
+        rating: req.body.rating,
+        comment: req.body.comment,
+        itemName: req.body.itemName,
+        category: req.body.category,
+      },
+      { new: true }
+    );
+
+    if (!updatedRating) {
+      return res.status(404).json({ message: "Rating not found." });
+    }
+
+    res.status(200).json(updatedRating);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating the rating.", error });
+  }
+});
+
 module.exports = router;
