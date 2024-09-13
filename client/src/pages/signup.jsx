@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../styles/signup.module.scss";
 
 export default function Signup() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: "",
