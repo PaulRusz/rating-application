@@ -22,6 +22,15 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
+      <div className={styles.navbar__logo}>
+        <ul>
+          <li>
+            <Link to="/welcomePage" className={styles.navLink}>
+              RateThis
+            </Link>
+          </li>
+        </ul>
+      </div>
       <ul className={styles.navList}>
         {!isLoggedIn ? (
           <>

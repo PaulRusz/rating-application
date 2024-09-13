@@ -1,65 +1,139 @@
-// src/styles/navbar.module.scss
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
 
 .navbar {
-    background-color: #00457c; /* Navbar background color */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Padding around the navbar */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .navList {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-  }
-  
-  .navList li {
-    margin: 0 15px;
-  }
-  
-  .navList a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s;
-  }
-  
-  .navList a:hover {
-    color: #66bfbf; /* Change color on hover */
-  }
-  
-  .searchContainer {
-    display: flex;
-    align-items: center;
-  }
-  
-  .searchInputBox {
-    padding: 5px;
-    border: none;
-    border-radius: 4px 0 0 4px;
-    font-size: 1rem;
-  }
-  
-  .searchButton {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    background-color: #66bfbf; /* Button background color */
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .searchButton:hover {
-    background-color: #00457c; /* Change button color on hover */
-  }
-  
+  background-color: #003366; /* Navy blue */
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__logo {
+  font-size: 2rem; 
+  font-weight: 500; 
+  font-family: 'Montserrat', sans-serif; 
+  color: #ffffff;
+  margin-right: auto;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar__logo:hover {
+  color: #cce7ff; 
+}
+
+.navbar__logo ul {
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.navbar__logo li {
+  display: inline; 
+}
+
+.navbar__logo a {
+  text-decoration: none; /* Removes underline from links */
+  color: inherit; /* Inherits the color from .navbar__logo */
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0;
+}
+
+.navList li {
+  margin: 0 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff; /* White text */
+  font-weight: 500;
+  font-size: 1.1rem;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #cce7ff; /* Lighter blue */
+}
+
+a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+}
+
+a:hover::after {
+  width: 100%; /* Underline expands */
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+}
+
+.searchInputBox {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  outline: none;
+  background-color: transparent;
+  color: #ffffff;
+  transition: border 0.3s ease-in-out;
+}
+
+.searchInputBox::placeholder {
+  color: #ffffff;
+}
+
+.searchInputBox:focus {
+  border-color: #cce7ff; /* Lighter blue border on focus */
+}
+
+.searchButton {
+  background-color: #ffffff;
+  color: #003366;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.searchButton:hover {
+  background-color: #cce7ff;
+  color: #003366;
+}
+
+button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+button:hover {
+  color: #cce7ff;
+}

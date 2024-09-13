@@ -1,3 +1,14 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .homepageContainer {
   display: flex;
   flex-direction: column;
@@ -7,6 +18,7 @@
   margin: 0 auto;
   text-align: center;
   background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  animation: fadeIn 1.5s ease-out; /* Applying the fade-in animation */
 }
 
 h1 {
@@ -29,6 +41,8 @@ p {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 2s ease-out 0.5s; /* Delayed fade-in for CTA */
+  animation-fill-mode: forwards;
 }
 
 .cta h2 {
@@ -60,6 +74,7 @@ p {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 2s ease-out 0.7s; /* Staggered animation for categories */
 }
 
 .featuredCategories h2 {

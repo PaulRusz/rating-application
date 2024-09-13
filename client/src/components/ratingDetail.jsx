@@ -59,10 +59,6 @@ export default function RatingDetail() {
     setIsEditing(!isEditing);
   };
 
-  // const handleEdit = () => {
-  //   navigate(`/rating/${id}/edit`);
-  // };
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -71,19 +67,17 @@ export default function RatingDetail() {
       {rating && (
         <>
           {!isEditing ? (
-            // View mode
             <>
               <h1>{rating.itemName}</h1>
+              <p>Category: {rating.category}</p>
               <p>Rating: {rating.rating}/5</p>
               <p>Comment: {rating.comment}</p>
               <div className={styles.actions}>
-                {/* <button onClick={handleEdit}>Edit</button> */}
                 <button onClick={toggleEdit}>Edit</button>
                 <button onClick={handleDelete}>Delete</button>
               </div>
             </>
           ) : (
-            // Edit mode (show form for editing)
             <form onSubmit={handleSave}>
               <div>
                 <label>Item Name:</label>
@@ -91,6 +85,16 @@ export default function RatingDetail() {
                   type="text"
                   name="itemName"
                   value={rating.itemName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Category:</label>
+                <input
+                  type="text"
+                  name="category"
+                  value={rating.category}
                   onChange={handleInputChange}
                   required
                 />
