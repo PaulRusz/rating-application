@@ -58,6 +58,10 @@ export default function Signup() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("firstName", data.firstName);
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
         alert("Signup successful!");
         navigate("/");
       } else {

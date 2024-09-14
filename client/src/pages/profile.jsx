@@ -4,15 +4,29 @@ import styles from "../styles/profile.module.scss";
 
 export default function Profile() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [userData, setUserData] = useState({
+    firstName: "",
+    username: "",
+    email: "",
+  });
 
   useEffect(() => {
+    const firstName = localStorage.getItem("firstName");
+    const username = localStorage.getItem("username");
+    const email = localStorage.getItem("email");
+
+    setUserData({
+      firstName: firstName || "Guest", // Fallback in case the first name is missing
+      username: username || "Not available", // Fallback in case the username is missing
+      email: email || "Not available", // Fallback in case the email is missing
+    });
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
-  });
+  }, []);
 
   return (
     <div className={styles.profileContainer}>
-      <h1>Welcome to the profile page!</h1>
+      <h1>Welcome, {userData.firstName} to the profile page!</h1>
       <p>On this page a user will be able to see their profile.</p>
 
       <div className={styles.dateTimeContainer}>
@@ -23,13 +37,13 @@ export default function Profile() {
       <div className={styles.userInfoContainer}>
         <h2>Your Profile Information:</h2>
         <p>
-          <strong>Username:</strong>Example
+          <strong>Username: </strong>
+          {userData.username}
         </p>
         <p>
-          <strong>Email:</strong>example@example.com
+          <strong>Email: </strong>
+          {userData.email}
         </p>
-        <p>Username: {localStorage.getItem("username")}</p>
-        <p>Email: {localStorage.getItem("email")}</p>
       </div>
 
       <div className={styles.userActivityContainer}>
