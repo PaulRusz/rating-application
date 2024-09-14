@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar.jsx";
 // import Footer from "./components/footer.jsx";
@@ -16,16 +16,29 @@ import WelcomePage from "./pages/welcomePage.jsx";
 import styles from "./styles/global.module.scss";
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    setIsLoggedIn(!!userToken);
+  }, []);
+
   return (
     <Router>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className={styles.App}>
         <Routes>
           <Route path="welcomePage" element={<WelcomePage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/addRating" element={<AddRating />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/logout"
+            element={<Logout setIsLoggedIn={setIsLoggedIn} />}
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/category/:category" element={<CategoryPage />} />

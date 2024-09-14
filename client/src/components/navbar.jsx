@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/navbar.module.scss";
 
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
@@ -18,6 +19,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     setIsLoggedIn(false);
+    navigate("/welcomePage");
   };
 
   return (
@@ -61,9 +63,11 @@ export default function Navbar() {
           />
           <button className={styles.searchButton}>Search</button>
         </li>
-        <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
+        {isLoggedIn && (
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        )}
       </ul>
     </nav>
   );
