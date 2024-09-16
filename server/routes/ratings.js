@@ -99,6 +99,21 @@ router.get("/ratings/:id", async (req, res) => {
   }
 });
 
+// GET route to search ratings by name
+router.get("/ratings", async (req, res) => {
+  const { name } = req.query;
+  try {
+    const ratings = await Rating.find({
+      name: { $regex: name, $options: "i" },
+    });
+    res.status(200).json(ratings);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error occurred while searching for rating." });
+  }
+});
+
 // DELETE route to delete a rating by id
 router.delete("/ratings/:id", async (req, res) => {
   try {

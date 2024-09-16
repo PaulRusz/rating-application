@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/navbar.module.scss";
+import axios from "axios";
 
 export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchError, setSearchError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +19,34 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
       setIsLoggedIn(false);
     }
   }, []);
+
+  // Function to handle search
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/ratings?name=${searchTerm}`
+      );
+
+      console.log("Search response:", response.data);
+
+      // Find exact match in the response array
+      const exactMatch = response.data.find(
+        (rating) => rating.itemName.toLowerCase() === searchTerm.toLowerCase()
+      );
+
+      if (exactMatch) {
+        // If an exact match is found, navigate to the detail page
+        navigate(`/rating/${exactMatch._id}`);
+      } else {
+        setSearchError("No ratings found for that name.");
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+      setSearchError("An error occurred while searching. Please try again.");
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
@@ -56,13 +88,20 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
           </>
         )}
         <li className={styles.searchContainer}>
-          <input
-            type="search"
-            placeholder="Search"
-            className={styles.searchInputBox}
-          />
-          <button className={styles.searchButton}>Search</button>
+          <form onSubmit={handleSearch}>
+            <input
+              type="search"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+              className={styles.searchInputBox}
+            />
+            <button type="submit" className={styles.searchButton}>
+              Search
+            </button>
+          </form>
         </li>
+        {searchError && <p className={styles.error}>{searchError}</p>}
         {isLoggedIn && (
           <li>
             <button onClick={handleLogout}>Logout</button>
