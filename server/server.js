@@ -6,18 +6,22 @@ const path = require("path");
 const authRoutes = require("./routes/auth.js");
 const ratingRoutes = require("./routes/ratings.js");
 
+const mongoURI = process.env.MONGODB_URI;
+
+console.log(process.env.MONGODB_URI);
+
 const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://66e7893bd923f10008fdf774--ratethis.netlify.app",
     credentials: true,
   })
 );
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
