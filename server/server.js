@@ -32,11 +32,11 @@ app.use("/api", authRoutes);
 app.use("/api", ratingRoutes);
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // Catch-all route to serve the React app
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
 
 // Start the server

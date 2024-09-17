@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
-    "build": "vite build"
+    "build": "vite build",
+    "start": "cd server && npm install && npm start"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
