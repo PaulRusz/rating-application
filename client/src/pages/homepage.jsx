@@ -11,7 +11,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchRatedItems = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/ratings");
+        const response = await fetch(`${process.env.VITE_API_URL}/api/ratings`);
         if (!response.ok) {
           throw new Error("Failed to fetch recent ratings.");
         }
@@ -26,7 +26,7 @@ export default function HomePage() {
 
     const fetchTopItems = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/top20");
+        const response = await fetch(`${process.env.VITE_API_URL}/api/top20`);
         if (!response.ok) {
           throw new Error("Failed to fetch top items.");
         }

@@ -16,7 +16,7 @@ export default function CategoryPage() {
     const fetchItems = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/items?category=${upperCaseCategory}`
+          `${process.env.VITE_API_URL}/api/items?category=${upperCaseCategory}`
         );
         if (Array.isArray(response.data)) {
           setItems(response.data);
@@ -37,7 +37,7 @@ export default function CategoryPage() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/ratings/${id}`);
+      await axios.delete(`${process.env.VITE_API_URL}/api/ratings/${id}`);
       setItems((prevItems) => prevItems.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Error deleting rating", error);

@@ -12,10 +12,13 @@ export default function Login({ setIsLoggedIn }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/api/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.VITE_API_URL}/api/login`,
+        {
+          email,
+          password,
+        }
+      );
       if (response.data.success) {
         localStorage.setItem("userToken", response.data.token);
         localStorage.setItem("username", response.data.username);

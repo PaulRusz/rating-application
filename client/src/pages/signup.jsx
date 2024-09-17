@@ -43,7 +43,7 @@ export default function Signup() {
 
   const submitFormData = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/signup", {
+      const response = await fetch(`${process.env.VITE_API_URL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

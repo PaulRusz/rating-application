@@ -15,7 +15,7 @@ export default function RatingDetail() {
     const fetchRating = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/ratings/${id}`
+          `${process.env.VITE_API_URL}/api/ratings/${id}`
         );
         setRating(response.data);
       } catch (err) {
@@ -30,7 +30,7 @@ export default function RatingDetail() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3001/api/ratings/${id}`);
+      await axios.delete(`${process.env.VITE_API_URL}/api/ratings/${id}`);
       navigate("/");
     } catch (err) {
       console.error("Error deleting rating.");
@@ -48,7 +48,7 @@ export default function RatingDetail() {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:3001/api/ratings/${id}`, rating);
+      await axios.put(`${process.env.VITE_API_URL}/api/ratings/${id}`, rating);
       setIsEditing(false);
     } catch (error) {
       console.error("Error saving rating.", error);

@@ -32,7 +32,7 @@ export default function AddRating() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/ratings", {
+      const response = await fetch(`${process.env.VITE_API_URL}/api/ratings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

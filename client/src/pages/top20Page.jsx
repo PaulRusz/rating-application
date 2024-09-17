@@ -9,7 +9,7 @@ export default function Top20Page() {
   useEffect(() => {
     const fetchTopItems = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/top20");
+        const response = await fetch(`${process.env.VITE_API_URL}/api/top20`);
         if (!response.ok) {
           throw new Error("Failed to fetch top items.");
         }
