@@ -6,10 +6,12 @@ export default function Top20Page() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchTopItems = async () => {
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/api/top20`);
+        const response = await fetch(`${apiUrl}/api/top20`);
         if (!response.ok) {
           throw new Error("Failed to fetch top items.");
         }

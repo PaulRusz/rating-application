@@ -8,10 +8,12 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchRatedItems = async () => {
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/api/ratings`);
+        const response = await fetch(`${apiUrl}/api/ratings`);
         if (!response.ok) {
           throw new Error("Failed to fetch recent ratings.");
         }
@@ -26,7 +28,7 @@ export default function HomePage() {
 
     const fetchTopItems = async () => {
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/api/top20`);
+        const response = await fetch(`${apiUrl}/api/top20`);
         if (!response.ok) {
           throw new Error("Failed to fetch top items.");
         }

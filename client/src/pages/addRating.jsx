@@ -16,6 +16,8 @@ export default function AddRating() {
 
   const navigate = useNavigate();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -32,7 +34,7 @@ export default function AddRating() {
     };
 
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/ratings`, {
+      const response = await fetch(`${apiUrl}/api/ratings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

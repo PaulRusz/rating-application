@@ -11,12 +11,12 @@ export default function RatingDetail() {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchRating = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.VITE_API_URL}/api/ratings/${id}`
-        );
+        const response = await axios.get(`${apiUrl}/api/ratings/${id}`);
         setRating(response.data);
       } catch (err) {
         setError(err.message);
@@ -30,7 +30,7 @@ export default function RatingDetail() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${process.env.VITE_API_URL}/api/ratings/${id}`);
+      await axios.delete(`${apiUrl}/api/ratings/${id}`);
       navigate("/");
     } catch (err) {
       console.error("Error deleting rating.");
@@ -48,7 +48,7 @@ export default function RatingDetail() {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${process.env.VITE_API_URL}/api/ratings/${id}`, rating);
+      await axios.put(`${apiUrl}/api/ratings/${id}`, rating);
       setIsEditing(false);
     } catch (error) {
       console.error("Error saving rating.", error);

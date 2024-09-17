@@ -10,6 +10,8 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   const [searchError, setSearchError] = useState("");
   const navigate = useNavigate();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
     console.log("User token:", userToken);
@@ -26,7 +28,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
     try {
       const response = await axios.get(
-        `${process.env.VITE_API_URL}/api/ratings?name=${searchTerm}`
+        `${apiUrl}/api/ratings?name=${searchTerm}`
       );
 
       console.log("Search response:", response.data);

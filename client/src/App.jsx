@@ -12,6 +12,7 @@ import CategoryPage from "./components/categoryPage.jsx";
 import Top20Page from "./pages/top20Page.jsx";
 import RatingDetail from "./components/ratingDetail.jsx";
 import WelcomePage from "./pages/welcomePage.jsx";
+import NotFoundPage from "./pages/notfound.jsx";
 
 import styles from "./styles/global.module.scss";
 
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/top20Page" element={<Top20Page />} />
           <Route path="/rating/:id" element={<RatingDetail />} />
           <Route path="/rating/:id/edit" element={<RatingDetail />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
       {/* <Footer /> */}
