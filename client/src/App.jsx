@@ -16,11 +16,15 @@ import NotFoundPage from "./pages/notfound.jsx";
 
 import styles from "./styles/global.module.scss";
 
+const ProtectedRoute = ({ element, isLoggedIn }) => {
+  return isLoggedIn ? element : <Login />; // Redirect to login if not logged in
+};
+
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userToken = localStorage.getItem("userToken");
+    const userToken = localStorage.getItem("id_token");
     setIsLoggedIn(!!userToken);
   }, []);
 
@@ -31,7 +35,12 @@ export default function App() {
         <Routes>
           <Route path="welcomePage" element={<WelcomePage />} />
           <Route path="/" element={<Homepage />} />
-          <Route path="/addRating" element={<AddRating />} />
+          <Route
+            path="/addRating"
+            element={
+              <ProtectedRoute element={<AddRating />} isLoggedIn={isLoggedIn} />
+            }
+          />
           <Route
             path="/login"
             element={<Login setIsLoggedIn={setIsLoggedIn} />}
@@ -41,7 +50,12 @@ export default function App() {
             element={<Logout setIsLoggedIn={setIsLoggedIn} />}
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute element={<Profile />} isLoggedIn={isLoggedIn} />
+            }
+          />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/top20Page" element={<Top20Page />} />
           <Route path="/rating/:id" element={<RatingDetail />} />
