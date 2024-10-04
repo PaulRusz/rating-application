@@ -26,7 +26,7 @@ export default function RatingDetail() {
     };
 
     fetchRating();
-  }, [id]);
+  }, [id, apiUrl]);
 
   const handleDelete = async () => {
     try {

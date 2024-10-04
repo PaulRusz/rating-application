@@ -32,7 +32,7 @@ export default function CategoryPage() {
       }
     };
     fetchItems();
-  }, [category]);
+  }, [category, apiUrl, upperCaseCategory]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

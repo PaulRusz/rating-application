@@ -6,7 +6,7 @@ import axios from "axios";
 export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState([]);
   const [searchError, setSearchError] = useState("");
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [setIsLoggedIn]);
 
   // Function to handle search
   const handleSearch = async (e) => {
