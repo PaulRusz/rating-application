@@ -18,6 +18,7 @@ export default function HomePage() {
           throw new Error("Failed to fetch recent ratings.");
         }
         const data = await response.json();
+        console.log("Rated Items:", data);
         setRatedItems(data);
       } catch (err) {
         setError(err.message);
@@ -41,7 +42,7 @@ export default function HomePage() {
 
     fetchRatedItems();
     fetchTopItems();
-  }, []);
+  }, [apiUrl]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

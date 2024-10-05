@@ -32,19 +32,35 @@ router.post("/ratings", async (req, res) => {
 // GET route to fetch all ratings by user
 router.get("/api/rate/:username", async (req, res) => {
   try {
-    // Find the user by their username
-    const user = await User.findOne({ username: req.params.username });
-    if (!user) {
-      return res.status(400).json({ error: "User not found" });
+    const ratings = await Rating.find({ username: req.params.username });
+
+    if (!ratings || ratings.length === 0) {
+      return res.status(404).json({ error: "No ratings found for this user" });
     }
 
-    // Find ratings by user ID
-    const ratings = await Rating.find({ user: user._id });
     res.status(200).json(ratings);
   } catch (error) {
-    res.status(500).json({ error: "Failed to find ratings." });
+    console.error("Error fetching ratings by username:", error);
+    res.status(500).json({ error: "Failed to fetch ratings" });
   }
 });
+
+// may not need this. replacing it.
+// router.get("/api/rate/:username", async (req, res) => {
+//   try {
+//     // Find the user by their username
+//     const user = await User.findOne({ username: req.params.username });
+//     if (!user) {
+//       return res.status(400).json({ error: "User not found" });
+//     }
+
+//     // Find ratings by user ID
+//     const ratings = await Rating.find({ user: user._id });
+//     res.status(200).json(ratings);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to find ratings." });
+//   }
+// });
 
 // GET route to fetch most recent ratings
 router.get("/ratings", async (req, res) => {

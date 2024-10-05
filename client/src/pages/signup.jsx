@@ -68,7 +68,8 @@ export default function Signup() {
         alert("Signup successful!");
         navigate("/");
       } else {
-        alert("Error during signup.");
+        const errorData = await response.json();
+        alert(`Error during signup: ${errorData.error || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Error:", error);
