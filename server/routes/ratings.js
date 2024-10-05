@@ -99,36 +99,65 @@ router.get("/items", async (req, res) => {
   }
 });
 
-// GET route to fetch a single rating by ID
-router.get("/ratings/:id", async (req, res) => {
-  const { id } = req.params;
+// GET route to fetch a single rating by ID or search by name
+router.get("/ratings", async (req, res) => {
+  const { id, name } = req.query;
 
   try {
-    const rating = await Rating.findById(id);
-    if (!rating) {
-      return res.status(404).json({ error: "Rating not found." });
+    // If `id` is provided, fetch by ID
+    if (id) {
+      const rating = await Rating.findById(id);
+      if (!rating) {
+        return res.status(404).json({ error: "Rating not found." });
+      }
+      return res.status(200).json(rating);
     }
-    res.status(200).json(rating);
+
+    // If `name` is provided, search by name
+    if (name) {
+      const ratings = await Rating.find({
+        itemName: { $regex: name, $options: "i" },
+      });
+      return res.status(200).json(ratings);
+    }
+
+    // If neither `id` nor `name` are provided, return an error
+    return res.status(400).json({ error: "Please provide a valid id or name" });
   } catch (error) {
-    console.error("Error fetching rating:", error);
     res.status(500).json({ error: "Failed to fetch rating." });
   }
 });
 
-// GET route to search ratings by name
-router.get("/ratings", async (req, res) => {
-  const { name } = req.query;
-  try {
-    const ratings = await Rating.find({
-      name: { $regex: name, $options: "i" },
-    });
-    res.status(200).json(ratings);
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error occurred while searching for rating." });
-  }
-});
+// // GET route to fetch a single rating by ID
+// router.get("/ratings/:id", async (req, res) => {
+//   const { id } = req.params;
+
+//   try {
+//     const rating = await Rating.findById(id);
+//     if (!rating) {
+//       return res.status(404).json({ error: "Rating not found." });
+//     }
+//     res.status(200).json(rating);
+//   } catch (error) {
+//     console.error("Error fetching rating:", error);
+//     res.status(500).json({ error: "Failed to fetch rating." });
+//   }
+// });
+
+// // GET route to search ratings by name
+// router.get("/ratings", async (req, res) => {
+//   const { name } = req.query;
+//   try {
+//     const ratings = await Rating.find({
+//       name: { $regex: name, $options: "i" },
+//     });
+//     res.status(200).json(ratings);
+//   } catch (err) {
+//     res
+//       .status(500)
+//       .json({ message: "Error occurred while searching for rating." });
+//   }
+// });
 
 // DELETE route to delete a rating by id
 router.delete("/ratings/:id", async (req, res) => {
