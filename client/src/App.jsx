@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/navbar.jsx";
 import Footer from "./components/footer.jsx";
 import Homepage from "./pages/homepage.jsx";
@@ -33,7 +38,10 @@ export default function App() {
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className={styles.App}>
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
+          <Route
+            path="/"
+            element={isLoggedIn ? <Navigate to="/homepage" /> : <WelcomePage />}
+          />
 
           <Route path="/homepage" element={<Homepage />} />
           <Route
