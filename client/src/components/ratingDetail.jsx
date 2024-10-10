@@ -16,7 +16,8 @@ export default function RatingDetail() {
   useEffect(() => {
     const fetchRating = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/ratings/${id}`);
+        // const response = await axios.get(`${apiUrl}/api/ratings/${id}`);
+        const response = await axios.get(`${apiUrl}/ratings?id=${id}`);
         setRating(response.data);
       } catch (err) {
         setError(err.message);
