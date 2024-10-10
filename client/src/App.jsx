@@ -38,7 +38,7 @@ export default function App() {
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <div className={styles.App}>
         <Routes>
-          <Route path="/" element={<Navigate to="/welcomePage" />} />
+          {/* <Route path="/" element={<Navigate to="/welcomePage" />} /> */}
 
           <Route path="/welcomePage" element={<WelcomePage />} />
 
