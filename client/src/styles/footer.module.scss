@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
 
 .footer {
-  background-color: #003366; /* Matches navbar background */
+  background-color: #003366;
   color: #ffffff;
-  padding: 20px 0;
+  padding: 10px 0;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -66,6 +66,10 @@
   font-size: 1rem;
   font-weight: 500;
   margin: 0;
+  padding: 0;
+  color: #ffffff;  
+  text-align: center;
+
 }
 
 @media (max-width: 768px) {
