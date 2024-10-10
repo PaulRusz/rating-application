@@ -31,6 +31,14 @@ export default function WelcomePage() {
           place, you can effortlessly manage and reflect on your experiences.
         </p>
       </section>
+      <br></br>
+      <br></br>
+      <br></br>
+      <section>
+        <p>
+          &copy; 2024 RateThis. All rights reserved. Created by Paul Ruszkay
+        </p>
+      </section>
     </div>
   );
 }

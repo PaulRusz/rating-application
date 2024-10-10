@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/navbar.jsx";
-import Footer from "./components/footer.jsx";
+// import Footer from "./components/footer.jsx";
 import Homepage from "./pages/homepage.jsx";
 import Login from "./pages/login.jsx";
 import Logout from "./pages/logout.jsx";
@@ -71,7 +71,7 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
