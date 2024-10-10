@@ -40,7 +40,7 @@ router.get("/api/rate/:username", async (req, res) => {
 });
 
 // GET route to fetch recent and top ratings
-router.get("/ratings/:id", async (req, res) => {
+router.get("/ratings", async (req, res) => {
   const { id, name } = req.query;
 
   try {
