@@ -1,0 +1,69 @@
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    animation: fadeIn 1.5s ease-out; /* Applying the fade-in animation */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  .cta {
+    margin-top: 30px;
+    background: lightblue; 
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-out 0.5s; /* Delayed fade-in for CTA */
+    animation-fill-mode: forwards;
+  }
+  
+  .cta h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .ctaButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    border: 2px solid lightblue;
+    transition: background-color 0.3s, color 0.3s;
+  
+    &:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+  }
+  
