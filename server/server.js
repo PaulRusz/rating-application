@@ -14,7 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://ratethis.netlify.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://ratethis.netlify.app",
+      "https://6708259bb86bc400085122bd--ratethis.netlify.app",
+    ],
     credentials: true,
   })
 );
