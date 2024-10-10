@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+
+.footer {
+  background-color: #003366; /* Matches navbar background */
+  color: #ffffff;
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footerLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  display: inline-block;
+}
+
+.footerLinks a {
+  color: #ffffff; /* White text */
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  position: relative;
+}
+
+.footerLinks a:hover {
+  color: #cce7ff; /* Lighter blue */
+}
+
+.footerLinks a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+}
+
+.footerLinks a:hover::after {
+  width: 100%;
+}
+
+.footer p {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footerLinks {
+    margin-top: 10px;
+    gap: 15px;
+  }
+}
