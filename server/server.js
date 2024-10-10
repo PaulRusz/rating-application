@@ -17,7 +17,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://ratethis.netlify.app",
-      "https://6708259bb86bc400085122bd--ratethis.netlify.app",
+      /https:\/\/[0-9a-f]{8,}--ratethis\.netlify\.app/,
     ],
     credentials: true,
   })
