@@ -19,7 +19,9 @@ app.use(
       "https://ratethis.netlify.app",
       /https:\/\/[0-9a-f]{8,}--ratethis\.netlify\.app/,
     ],
-    credentials: true,
+    credentials: true, // Allow credentials (e.g., cookies, authentication headers)
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   })
 );
 
