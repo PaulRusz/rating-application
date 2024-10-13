@@ -15,6 +15,8 @@ export default function HomePage() {
       try {
         const response = await fetch(`${apiUrl}/api/ratings`);
         if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
           throw new Error("Failed to fetch recent ratings.");
         }
         const data = await response.json();
@@ -31,6 +33,8 @@ export default function HomePage() {
       try {
         const response = await fetch(`${apiUrl}/api/top20`);
         if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
           throw new Error("Failed to fetch top items.");
         }
         const data = await response.json();
