@@ -29,6 +29,10 @@ export default function Login({ setIsLoggedIn }) {
       }
     } catch (err) {
       setError("An error occurred during login. Please try again.");
+      console.error(
+        "Login error:",
+        err.response ? err.response.data : err.message
+      );
     }
   };
 
