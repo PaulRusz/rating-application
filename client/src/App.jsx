@@ -39,7 +39,7 @@ export default function App() {
       <div className={styles.App}>
         <Routes>
           <Route
-            path="/"
+            path="/homepage"
             element={
               <Navigate to={isLoggedIn ? "/homepage" : "/welcomePage"} />
             }
