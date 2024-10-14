@@ -19,11 +19,16 @@ const RatingSchema = new mongoose.Schema(
       min: 1,
       max: 5,
     },
-    username: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
-      trim: true,
     },
+    // username: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
     comment: {
       type: String,
       trim: true,
