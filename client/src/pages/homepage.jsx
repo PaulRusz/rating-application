@@ -10,17 +10,28 @@ export default function HomePage() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
+  const getCurrentUserToken = () => {
+    return localStorage.getItem("token");
+  };
+
   useEffect(() => {
     const fetchRatedItems = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/ratings`);
+        const token = getCurrentUserToken();
+        const response = await fetch(`${apiUrl}/api/rate`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         if (!response.ok) {
           const errorText = await response.text();
           console.error("Rated Items Error:", errorText);
-          throw new Error("Failed to fetch recent ratings.");
+          throw new Error("Failed to fetch personal ratings.");
         }
+
         const data = await response.json();
-        console.log("Rated Items:", data);
         setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);

@@ -4,19 +4,30 @@ const Rating = require("../models/rating.js");
 const User = require("../models/user.js");
 const { decode } = require("../utils/auth");
 
-// POST route to add a new rating
-router.post("/ratings", async (req, res) => {
-  const { category, name, rating, comment } = req.body;
-
+// Middleware to verify token and get user ID
+const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ error: "No token provided" });
+    return res.status(401).json({ message: "No token provided" });
   }
 
   try {
     const decoded = decode(token);
-    const userId = decoded.data._id;
+    req.userId = decoded.data._id;
+    next();
+  } catch (error) {
+    console.error("Token verification failed:", error);
+    return res.status(401).json({ error: "Invalid token" });
+  }
+};
+
+// POST route to add a new rating
+router.post("/ratings", async (req, res) => {
+  const { category, name, rating, comment } = req.body;
+
+  try {
+    const userId = req.userId;
 
     const newRating = new Rating({
       category,
@@ -35,15 +46,8 @@ router.post("/ratings", async (req, res) => {
 
 // GET route to fetch all ratings by user
 router.get("/api/rate", async (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1]; // Extract token from headers
-
-  if (!token) {
-    return res.status(401).json({ error: "No token provided" });
-  }
-
   try {
-    const decoded = decode(token); // Verify and decode the token
-    const userId = decoded.data._id; // Extract user ID from decoded token
+    const userId = req.userId;
 
     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
 
