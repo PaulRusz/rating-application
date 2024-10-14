@@ -47,7 +47,8 @@ router.post("/ratings", async (req, res) => {
 // GET route to fetch all ratings by user
 router.get("/api/rate", async (req, res) => {
   try {
-    const userId = req.userId;
+    const decoded = decode(token); // Verify and decode the token
+    const userId = decoded.data._id; // Extract user ID from decoded token
 
     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
 
