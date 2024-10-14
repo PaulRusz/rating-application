@@ -16,13 +16,14 @@ export default function HomePage() {
         const response = await fetch(`${apiUrl}/api/ratings`);
         if (!response.ok) {
           const errorText = await response.text();
-          console.error("Error response:", errorText);
+          console.error("Rated Items Error:", errorText);
           throw new Error("Failed to fetch recent ratings.");
         }
         const data = await response.json();
         console.log("Rated Items:", data);
         setRatedItems(data);
       } catch (err) {
+        console.error("Fetch Rated Items Error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
