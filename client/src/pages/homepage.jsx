@@ -18,10 +18,18 @@ export default function HomePage() {
     const fetchRatedItems = async () => {
       try {
         const token = getCurrentUserToken();
+
+        if (!token) {
+          console.error("No token available. Please log in."); // Added this line
+          setError("You must be logged in to view your rated items."); // Added this line
+          return; // Early return if there is no token
+        }
+
         const response = await fetch(`${apiUrl}/api/rate`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // Added this line
           },
         });
 
