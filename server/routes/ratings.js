@@ -52,7 +52,7 @@ router.get("/api/rate", verifyToken, async (req, res) => {
     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
 
     if (!ratings || ratings.length === 0) {
-      return res.status(404).json({ error: "No ratings found for this user" });
+      return res.status(200).json([]);
     }
 
     res.status(200).json(ratings);
