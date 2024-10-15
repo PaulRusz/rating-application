@@ -11,7 +11,7 @@ export default function HomePage() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const getCurrentUserToken = () => {
-    return localStorage.getItem("token");
+    return localStorage.getItem("userToken");
   };
 
   useEffect(() => {
