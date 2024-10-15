@@ -48,6 +48,8 @@ router.post("/ratings", verifyToken, async (req, res) => {
 router.get("/api/rate", verifyToken, async (req, res) => {
   console.log("API rate endpoint hit with userId:", req.userId);
   console.log("Rate API hit");
+  console.log("API rate endpoint hit with userId:", req.userId);
+  console.log("Authorization header:", req.headers.authorization);
   try {
     const userId = req.userId;
 

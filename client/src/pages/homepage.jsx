@@ -35,16 +35,19 @@ export default function HomePage() {
         });
 
         console.log("Response status:", response.status);
-        const responseText = await response.text(); // Read the response as text
 
-        console.log("Response body:", responseText); // Log the full response body
+        // Check the content type of the response
+        const contentType = response.headers.get("content-type");
 
-        if (!response.ok) {
-          console.error("Error details:", responseText);
-          throw new Error("Failed to fetch personal ratings.");
+        // If the response is HTML, log it and handle the error
+        if (contentType && contentType.includes("text/html")) {
+          const responseText = await response.text(); // Read the response as text
+          console.error("Expected JSON, but received HTML:", responseText);
+          throw new Error("Expected JSON, but received HTML response.");
         }
 
-        const data = JSON.parse(responseText); // Parse the text to JSON
+        // If response is OK, parse it as JSON
+        const data = await response.json(); // Parse directly to JSON if content is correct
         setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);
