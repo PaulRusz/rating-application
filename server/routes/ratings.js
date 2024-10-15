@@ -47,18 +47,19 @@ router.post("/ratings", verifyToken, async (req, res) => {
 // GET route to fetch all ratings by user
 router.get("/rate", verifyToken, async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.user.id; // Assuming you are storing user ID in the token
+    const ratings = await Rating.find({ userId }); // Fetch ratings for the specific user
 
-    const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
-
-    if (!ratings || ratings.length === 0) {
-      return res.status(200).json({ error: "No ratings found for this user" });
+    if (!ratings) {
+      return res
+        .status(404)
+        .json({ message: "No ratings found for this user." });
     }
 
-    res.status(200).json(ratings);
+    res.status(200).json(ratings); // Return the ratings in JSON format
   } catch (error) {
-    console.error("Error fetching ratings by user ID:", error);
-    res.status(500).json({ error: "Failed to fetch ratings" });
+    console.error("Error fetching ratings:", error);
+    res.status(500).json({ message: "Server error while fetching ratings." });
   }
 });
 
