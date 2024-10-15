@@ -19,6 +19,7 @@ export default function Login({ setIsLoggedIn }) {
         password,
       });
       if (response.data.success) {
+        console.log("Token received:", response.data.token);
         localStorage.setItem("userToken", response.data.token);
         localStorage.setItem("username", response.data.username);
         setIsLoggedIn(true);

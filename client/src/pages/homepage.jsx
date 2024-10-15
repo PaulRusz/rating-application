@@ -33,6 +33,9 @@ export default function HomePage() {
           },
         });
 
+        console.log("Response status:", response.status);
+        console.log("Response body:", await response.text());
+
         if (!response.ok) {
           const errorText = await response.text();
           console.error("Rated Items Error:", errorText);
