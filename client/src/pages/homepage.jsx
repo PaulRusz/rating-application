@@ -20,27 +20,29 @@ export default function HomePage() {
         const token = getCurrentUserToken();
 
         if (!token) {
-          console.error("No token available. Please log in."); // Added this line
-          setError("You must be logged in to view your rated items."); // Added this line
-          return; // Early return if there is no token
+          console.error("No token available. Please log in.");
+          setError("You must be logged in to view your rated items.");
+          return;
         }
 
         const response = await fetch(`${apiUrl}/api/rate`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // Added this line
+            "Content-Type": "application/json",
           },
         });
 
         console.log("Response status:", response.status);
-        const data = await response.json(); // Only read the body once
+        const responseText = await response.text(); // Read the response as text
+
+        console.log("Response body:", responseText); // Log the full response body
 
         if (!response.ok) {
-          console.error("Rated Items Error:", data); // Log the error response if not okay
-          throw new Error(data.error || "Failed to fetch personal ratings.");
+          throw new Error("Failed to fetch personal ratings.");
         }
 
+        const data = JSON.parse(responseText); // Parse the text to JSON
         setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);
