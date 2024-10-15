@@ -23,7 +23,7 @@ const verifyToken = async (req, res, next) => {
 };
 
 // POST route to add a new rating
-router.post("/ratings", async (req, res) => {
+router.post("/ratings", verifyToken, async (req, res) => {
   const { category, name, rating, comment } = req.body;
 
   try {
@@ -45,10 +45,9 @@ router.post("/ratings", async (req, res) => {
 });
 
 // GET route to fetch all ratings by user
-router.get("/api/rate", async (req, res) => {
+router.get("/api/rate", verifyToken, async (req, res) => {
   try {
-    const decoded = decode(token); // Verify and decode the token
-    const userId = decoded.data._id; // Extract user ID from decoded token
+    const userId = req.userId;
 
     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
 
@@ -134,7 +133,7 @@ router.get("/ratings/:id", async (req, res) => {
 });
 
 // GET route to search ratings by name
-router.get("/ratings", async (req, res) => {
+router.get("/ratings/search", async (req, res) => {
   const { name } = req.query;
   try {
     const ratings = await Rating.find({
@@ -158,7 +157,7 @@ router.delete("/ratings/:id", async (req, res) => {
       return res.status(404).json({ message: "Rating not found" });
     }
 
-    res.setMaxListeners(200).json({ message: "Rating deleted!" });
+    res.status(200).json({ message: "Rating deleted!" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting rating", error });
   }
