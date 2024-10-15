@@ -39,6 +39,7 @@ export default function HomePage() {
         console.log("Response body:", responseText); // Log the full response body
 
         if (!response.ok) {
+          console.error("Error details:", responseText);
           throw new Error("Failed to fetch personal ratings.");
         }
 
