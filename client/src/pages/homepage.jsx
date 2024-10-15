@@ -34,15 +34,13 @@ export default function HomePage() {
         });
 
         console.log("Response status:", response.status);
-        console.log("Response body:", await response.text());
+        const data = await response.json(); // Only read the body once
 
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Rated Items Error:", errorText);
-          throw new Error("Failed to fetch personal ratings.");
+          console.error("Rated Items Error:", data); // Log the error response if not okay
+          throw new Error(data.error || "Failed to fetch personal ratings.");
         }
 
-        const data = await response.json();
         setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);
