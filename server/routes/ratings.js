@@ -133,7 +133,7 @@ router.get("/ratings/:id", async (req, res) => {
 });
 
 // GET route to search ratings by name
-router.get("/ratings/search", async (req, res) => {
+router.get("/ratings", async (req, res) => {
   const { name } = req.query;
   try {
     const ratings = await Rating.find({

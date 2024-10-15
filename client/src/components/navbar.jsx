@@ -28,7 +28,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
     try {
       const response = await axios.get(
-        `${apiUrl}/api/ratings/search?name=${searchTerm}`
+        `${apiUrl}/api/ratings?name=${searchTerm}`
       );
 
       console.log("Search response:", response.data);
