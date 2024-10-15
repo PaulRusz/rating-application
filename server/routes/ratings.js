@@ -45,7 +45,7 @@ router.post("/ratings", verifyToken, async (req, res) => {
 });
 
 // GET route to fetch all ratings by user
-router.get("/api/rate", verifyToken, async (req, res) => {
+router.get("/rate", verifyToken, async (req, res) => {
   try {
     const userId = req.userId;
 
