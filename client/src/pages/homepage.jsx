@@ -25,6 +25,7 @@ export default function HomePage() {
           return;
         }
 
+        // Ensure this matches the route defined in ratings.js
         const response = await fetch(`${apiUrl}/api/rate`, {
           method: "GET",
           headers: {
