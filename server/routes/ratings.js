@@ -46,17 +46,13 @@ router.post("/ratings", verifyToken, async (req, res) => {
 
 // GET route to fetch all ratings by user
 router.get("/api/rate", verifyToken, async (req, res) => {
-  console.log("API rate endpoint hit with userId:", req.userId);
-  console.log("Rate API hit");
-  console.log("API rate endpoint hit with userId:", req.userId);
-  console.log("Authorization header:", req.headers.authorization);
   try {
     const userId = req.userId;
 
     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
 
     if (!ratings || ratings.length === 0) {
-      return res.status(200).json([]);
+      return res.status(200).json({ error: "No ratings found for this user" });
     }
 
     res.status(200).json(ratings);

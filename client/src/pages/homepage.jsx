@@ -11,43 +11,27 @@ export default function HomePage() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const getCurrentUserToken = () => {
-    return localStorage.getItem("userToken");
+    return localStorage.getItem("token");
   };
 
   useEffect(() => {
     const fetchRatedItems = async () => {
       try {
         const token = getCurrentUserToken();
-
-        if (!token) {
-          console.error("No token available. Please log in.");
-          setError("You must be logged in to view your rated items.");
-          return;
-        }
-
-        // Ensure this matches the route defined in ratings.js
-        const response = await fetch(`${apiUrl}/api/rate`, {
+        const response = await fetch(`${apiUrl}/api/ratings`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         });
 
-        console.log("Response status:", response.status);
-
-        // Check the content type of the response
-        const contentType = response.headers.get("content-type");
-
-        // If the response is HTML, log it and handle the error
-        if (contentType && contentType.includes("text/html")) {
-          const responseText = await response.text(); // Read the response as text
-          console.error("Expected JSON, but received HTML:", responseText);
-          throw new Error("Expected JSON, but received HTML response.");
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Rated Items Error:", errorText);
+          throw new Error("Failed to fetch personal ratings.");
         }
 
-        // If response is OK, parse it as JSON
-        const data = await response.json(); // Parse directly to JSON if content is correct
+        const data = await response.json();
         setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);
