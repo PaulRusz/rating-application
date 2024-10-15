@@ -13,8 +13,8 @@ const verifyToken = async (req, res, next) => {
   }
 
   try {
-    const decoded = decode(token);
-    req.userId = decoded.data._id;
+    const decoded = JWT.verify(token, process.env.JWT_SECRET); // Use JWT.verify here
+    req.userId = decoded.data._id; // Ensure this matches your token structure
     next();
   } catch (error) {
     console.error("Token verification failed:", error);
@@ -45,6 +45,24 @@ router.post("/ratings", verifyToken, async (req, res) => {
 });
 
 // GET route to fetch all ratings by user
+// router.get("/api/rate", verifyToken, async (req, res) => {
+//   try {
+//     const userId = req.userId;
+
+//     const ratings = await Rating.find({ user: userId }); // Fetch ratings by user ID
+
+//     if (!ratings || ratings.length === 0) {
+//       return res.status(200).json({ error: "No ratings found for this user" });
+//     }
+
+//     res.status(200).json(ratings);
+//   } catch (error) {
+//     console.error("Error fetching ratings by user ID:", error);
+//     res.status(500).json({ error: "Failed to fetch ratings" });
+//   }
+// });
+
+// NEW GET route to see if this one works instead of above:
 router.get("/rate", verifyToken, async (req, res) => {
   try {
     const userId = req.user.id; // Assuming you are storing user ID in the token
