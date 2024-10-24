@@ -10,16 +10,26 @@ const verifyToken = async (req, res, next) => {
   console.log("Token received in middleware:", token);
 
   if (!token) {
+    console.log("No token provided");
     return res.status(401).json({ message: "No token provided" });
   }
 
   try {
+    // Decode the token to check the expiration
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded token:", decoded);
+
+    // Check if the token is expired
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    if (decoded.exp < currentTime) {
+      console.log("Token has expired");
+      return res.status(401).json({ error: "Token has expired" });
+    }
+
     req.userId = decoded.id; // Access the ID correctly
     next();
   } catch (error) {
-    console.error("Token verification failed:", error);
+    console.error("Token verification failed:", error.message);
     return res.status(401).json({ error: "Invalid token" });
   }
 };
