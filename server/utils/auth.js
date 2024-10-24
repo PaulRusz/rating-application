@@ -35,7 +35,7 @@ module.exports = {
       return JWT.sign({ data: Payload }, Secret, { expiresIn: Expiration });
     } catch (error) {
       console.error("Token Signing Error:", error.message); // Log if there's any error during signing
-      throw new Error("Failed to sign token");
+      throw new GraphQLError("Failed to sign token"); // Changed to GraphQLError
     }
   },
 };

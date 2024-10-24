@@ -13,8 +13,8 @@ const verifyToken = async (req, res, next) => {
   }
 
   try {
-    const decoded = JWT.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.data._id; // Use req.userId for consistency
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decoded.id; // Access the ID correctly
     next();
   } catch (error) {
     console.error("Token verification failed:", error);
