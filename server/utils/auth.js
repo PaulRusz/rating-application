@@ -28,7 +28,7 @@ module.exports = {
   },
   // Function to sign and return a new JWT token
   signToken: function ({ email, username, _id }) {
-    const Payload = { email, username, _id };
+    const Payload = { email, username, id: _id }; // Changed '_id' to 'id' for consistency
     console.log("Signing token with payload:", Payload); // Log token payload during creation (helpful for debugging)
 
     try {
