@@ -7,6 +7,7 @@ const { decode } = require("../utils/auth");
 // Middleware to verify token and get user ID
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
+  console.log("Token received in middleware:", token);
 
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
@@ -66,7 +67,8 @@ router.post("/ratings", verifyToken, async (req, res) => {
 // NEW GET route to see if this one works instead of above:
 router.get("/rate", verifyToken, async (req, res) => {
   try {
-    const userId = req.userId; // Use req.userId to access the user ID
+    const userId = req.userId; // Use req.userId to access the user ID'
+    console.log("User ID for ratings query:", userId);
     const ratings = await Rating.find({ user: userId });
 
     if (!ratings || ratings.length === 0) {

@@ -18,7 +18,7 @@ export default function HomePage() {
     const fetchRatedItems = async () => {
       try {
         const token = getCurrentUserToken();
-        const response = await fetch(`${apiUrl}/api/ratings`, {
+        const response = await fetch(`${apiUrl}/api/rate`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,9 +27,11 @@ export default function HomePage() {
         });
 
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Rated Items Error:", errorText);
-          throw new Error("Failed to fetch personal ratings.");
+          const errorData = await response.json();
+          console.error("Error fetching ratings:", errorData);
+        } else {
+          const data = await response.json();
+          console.log("User ratings:", data);
         }
 
         const data = await response.json();
