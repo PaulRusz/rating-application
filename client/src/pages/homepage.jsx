@@ -29,13 +29,12 @@ export default function HomePage() {
         if (!response.ok) {
           const errorData = await response.json();
           console.error("Error fetching ratings:", errorData);
+          setError(errorData.error || "Failed to fetch ratings.");
         } else {
           const data = await response.json();
           console.log("User ratings:", data);
+          setRatedItems(data);
         }
-
-        const data = await response.json();
-        setRatedItems(data);
       } catch (err) {
         console.error("Fetch Rated Items Error:", err);
         setError(err.message);

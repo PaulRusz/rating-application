@@ -7,25 +7,26 @@ class AuthService {
   }
 
   LoggedIn() {
-    const Token = this.GetToken();
-    return Token && !this.IsTokenExpired(Token);
+    const token = this.GetToken();
+    return token && !this.IsTokenExpired(token);
   }
 
-  IsTokenExpired(Token) {
-    const Decoded = jwtDecode(Token);
-    return Decoded.exp < Date.now() / 1000;
+  IsTokenExpired(token) {
+    if (!token) return true; // If no token, consider it expired
+    const decoded = jwtDecode(token);
+    return decoded.exp < Date.now() / 1000;
   }
 
   GetToken() {
-    return localStorage.getItem("id_token");
+    return localStorage.getItem("userToken"); // Use userToken here
   }
 
-  Login(IdToken) {
-    localStorage.setItem("id_token", IdToken);
+  Login(idToken) {
+    localStorage.setItem("userToken", idToken); // Use userToken here
   }
 
   Logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem("userToken"); // Use userToken here
     window.location.reload();
   }
 }
