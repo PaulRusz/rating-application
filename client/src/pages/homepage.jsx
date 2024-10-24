@@ -18,7 +18,7 @@ export default function HomePage() {
     const fetchRatedItems = async () => {
       try {
         const token = getCurrentUserToken();
-        const response = await fetch(`${apiUrl}/api/rate`, {
+        const response = await fetch(`${apiUrl}/api/ratings`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
