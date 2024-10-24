@@ -26,7 +26,7 @@ const verifyToken = async (req, res, next) => {
       return res.status(401).json({ error: "Token has expired" });
     }
 
-    req.userId = decoded.id; // Access the ID correctly
+    req.userId = decoded.data.id; // Access the ID correctly
     next();
   } catch (error) {
     console.error("Token verification failed:", error.message);
