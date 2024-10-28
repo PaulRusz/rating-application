@@ -10,9 +10,7 @@ export default function HomePage() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const getCurrentUserToken = () => {
-    return localStorage.getItem("userToken");
-  };
+  const getCurrentUserToken = () => localStorage.getItem("userToken");
 
   useEffect(() => {
     const fetchRatedItems = async () => {
@@ -28,16 +26,14 @@ export default function HomePage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.error("Error fetching ratings:", errorData);
           setError(errorData.error || "Failed to fetch ratings.");
-        } else {
-          const data = await response.json();
-          console.log("User ratings:", data);
-          setRatedItems(data);
+          return;
         }
+
+        const data = await response.json();
+        setRatedItems(data);
       } catch (err) {
-        console.error("Fetch Rated Items Error:", err);
-        setError(err.message);
+        setError("Error fetching ratings.");
       } finally {
         setLoading(false);
       }
@@ -46,15 +42,12 @@ export default function HomePage() {
     const fetchTopItems = async () => {
       try {
         const response = await fetch(`${apiUrl}/api/top20`);
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Error response:", errorText);
-          throw new Error("Failed to fetch top items.");
-        }
+        if (!response.ok) throw new Error("Failed to fetch top items.");
+
         const data = await response.json();
         setTopItems(data);
       } catch (err) {
-        setError(err.message);
+        setError("Error fetching top items.");
       }
     };
 

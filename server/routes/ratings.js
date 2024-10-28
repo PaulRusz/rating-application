@@ -5,32 +5,19 @@ const User = require("../models/user.js");
 const { decode } = require("../utils/auth");
 
 // Middleware to verify token and get user ID
-const verifyToken = async (req, res, next) => {
+const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-  console.log("Token received in middleware:", token);
 
   if (!token) {
-    console.log("No token provided");
-    return res.status(401).json({ message: "No token provided" });
+    return res.status(401).json({ error: "Unauthorized: No token provided." });
   }
 
   try {
-    // Decode the token to check the expiration
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
-
-    // Check if the token is expired
-    const currentTime = Date.now() / 1000; // Convert to seconds
-    if (decoded.exp < currentTime) {
-      console.log("Token has expired");
-      return res.status(401).json({ error: "Token has expired" });
-    }
-
-    req.userId = decoded.id; // Access the ID correctly
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.userId = decoded.id; // Set user ID for further use
     next();
   } catch (error) {
-    console.error("Token verification failed:", error.message);
-    return res.status(401).json({ error: "Invalid token" });
+    return res.status(401).json({ error: "Unauthorized: Invalid token." });
   }
 };
 
@@ -77,20 +64,15 @@ router.post("/ratings", verifyToken, async (req, res) => {
 // NEW GET route to see if this one works instead of above:
 router.get("/rate", verifyToken, async (req, res) => {
   try {
-    const userId = req.userId; // Use req.userId to access the user ID'
-    console.log("User ID for ratings query:", userId);
-    const ratings = await Rating.find({ user: userId });
+    const ratings = await Rating.find({ user: req.userId });
 
     if (!ratings || ratings.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No ratings found for this user." });
+      return res.status(404).json({ error: "No ratings found for this user." });
     }
-
     res.status(200).json(ratings);
   } catch (error) {
     console.error("Error fetching ratings:", error);
-    res.status(500).json({ message: "Server error while fetching ratings." });
+    res.status(500).json({ error: "Server error while fetching ratings." });
   }
 });
 
