@@ -26,6 +26,9 @@ app.use(
   })
 );
 
+// REMOVE WHEN THIS APP WORKS PROPERLY
+console.log("JWT Secret:", process.env.JWT_SECRET);
+
 // Preflight request handling for all routes
 app.options("*", cors()); // Handle OPTIONS requests for preflight
 

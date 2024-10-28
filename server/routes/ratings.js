@@ -76,6 +76,7 @@ router.get("/rate", verifyToken, async (req, res) => {
     console.error("Error fetching ratings:", error);
     res.status(500).json({ error: "Server error while fetching ratings." });
   }
+  console.log("Authorization Header:", req.headers.authorization);
 });
 
 // may not need this. replacing it.
