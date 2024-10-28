@@ -53,28 +53,21 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      console.error("Login error: User not found");
-      return res.status(401).json({ error: "User not found" });
+      return res.status(401).json({ error: "User was not found" });
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      console.error("Login error: Invalid password");
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    if (!JWT_SECRET) {
-      console.error("Login error: Missing JWT_SECRET");
-      return res.status(500).json({ error: "Server configuration error." });
-    }
-
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, {
-      expiresIn: TOKEN_EXPIRATION,
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "2h", // Adjusted to match expiration time in utils
     });
+
     return res.json({ success: true, token, username: user.username });
   } catch (error) {
-    console.error("Server error during login:", error); // This will log the specific error
-    return res.status(500).json({ error: "Server error during login." });
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
