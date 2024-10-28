@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AuthService from "./auth";
 import { Link } from "react-router-dom";
 import styles from "../styles/homepage.module.scss";
 
@@ -10,30 +11,16 @@ export default function HomePage() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const getCurrentUserToken = () => localStorage.getItem("userToken");
-
   useEffect(() => {
     const fetchRatedItems = async () => {
       try {
-        const token = getCurrentUserToken();
-        const response = await fetch(`${apiUrl}/api/rate`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          setError(errorData.error || "Failed to fetch ratings.");
-          return;
-        }
+        const response = await AuthService.fetchWithAuth(`${apiUrl}/api/rate`);
+        if (!response.ok) throw new Error("Failed to fetch ratings.");
 
         const data = await response.json();
         setRatedItems(data);
       } catch (err) {
-        setError("Error fetching ratings.");
+        setError(err.message || "Error fetching ratings.");
       } finally {
         setLoading(false);
       }
