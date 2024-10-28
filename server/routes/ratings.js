@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Rating = require("../models/rating.js");
 const User = require("../models/user.js");
+const JWT_SECRET = process.env.JWT_SECRET || "fallbacksecret";
 const { decode } = require("../utils/auth");
 
 // Middleware to verify token and get user ID
@@ -14,6 +15,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
+    console.log("Decoded token:", decoded);
     req.userId = decoded.id; // Set user ID for further use
     next();
   } catch (error) {
