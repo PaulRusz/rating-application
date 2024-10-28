@@ -12,6 +12,7 @@ console.log(process.env.MONGODB_URI);
 
 const app = express();
 app.use(express.json());
+// Enable CORS
 app.use(
   cors({
     origin: [
@@ -27,6 +28,9 @@ app.use(
 
 // Preflight request handling for all routes
 app.options("*", cors()); // Handle OPTIONS requests for preflight
+
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 // Connect to MongoDB
 mongoose
