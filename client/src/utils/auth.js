@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { decode as jwtDecode } from "jwt-decode";
 
 // Define the AuthService
 class AuthService {
