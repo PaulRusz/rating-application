@@ -52,21 +52,30 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ error: "User not found" });
+    if (!user) {
+      console.error("Login error: User not found");
+      return res.status(401).json({ error: "User not found" });
+    }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword)
+    if (!isValidPassword) {
+      console.error("Login error: Invalid password");
       return res.status(401).json({ error: "Invalid password" });
+    }
+
+    if (!JWT_SECRET) {
+      console.error("Login error: Missing JWT_SECRET");
+      return res.status(500).json({ error: "Server configuration error." });
+    }
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: TOKEN_EXPIRATION,
     });
     return res.json({ success: true, token, username: user.username });
   } catch (error) {
+    console.error("Server error during login:", error); // This will log the specific error
     return res.status(500).json({ error: "Server error during login." });
   }
 });
-
-module.exports = router;
 
 module.exports = router;
